@@ -72,15 +72,38 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
     # print(chains[0])
-
+    open_file = open_and_read_file(input_path)
+    string_of_file = open_file.split()
+    print(string_of_file)
     words = []
-    random_key = random.choice(list(chains.keys()))
-    random_key_word = random.choice(random_key)
-    print(random_key)
-    print(random_key_word)
+    # while
+    random_key = random.choice(list(chains.keys()))  # Tuple key; first key
+    random_key_word = random.choice(
+        random_key
+    )  # string pulled from tuple to be added to final text
+    # words.append(random_key_word)
+    # print(random_key)
+    # print(random_key_word)
+
+    random_value = random.choice(chains[random_key])  # Value from the tuple key
+    # print(random_value)
+    words.append(random_value)
+
+    for key, value in chains.items():
+        # print(key[1])
+        if key != random_key:
+            words.append(random.choice(list(key)))
+            # words.append(random.choice(value))
+
+        if key[1] == random_value:
+            words.append(random.choice(value))
+
+    # for key, value in chains.items():
+
+    # print(words)  # CHECKING IF IN LIST
     # your code goes here
     # link is a tuple/ key form our dictionary
-    # the link also includes a random word from the value of that key (rnaomd single value)
+    # the link also includes a random word from the value of that key (random single value)
     # Iterate over
 
     # for key, value in chains.items():
@@ -95,17 +118,3 @@ def make_text(chains):
     # print(words)
 
     return " ".join(words)
-
-
-input_path = "green-eggs.txt"
-
-# Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
-# print(input_text)
-# Get a Markov chain
-chains = make_chains(input_text)
-
-# Produce random text
-random_text = make_text(chains)
-
-# print(random_text)
